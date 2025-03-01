@@ -20,7 +20,16 @@
         <button class="btn btn-green" onclick="register()">ابدأ</button>
     </div>
 
+    <div id="admin-panel" style="display: none;">
+        <h2>لوحة الإدارة</h2>
+        <label for="admin-user">أدخل يوزر الشخص</label>
+        <input type="text" id="admin-user" placeholder="Username">
+        <button class="btn btn-green" onclick="addAdmin()">تعيين أدمن</button>
+        <button class="btn btn-red" onclick="removeAdmin()">إزالة أدمن</button>
+    </div>
+
     <h2>المتصلين الآن: <span id="online-count">0</span></h2>
+    <ul id="online-users"></ul>
 
     <div id="chat-container" class="chat-container"></div>
 
@@ -28,8 +37,6 @@
         <input type="text" id="message-input" placeholder="اكتب رسالتك...">
         <button class="btn btn-green" onclick="sendMessage()">إرسال</button>
     </div>
-
-    <audio id="notification-sound" src="https://www.myinstants.com/media/sounds/notification-sound.mp3"></audio>
 
     <script src="main.js"></script>
 
