@@ -1,0 +1,112 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: red;
+    color: white;
+    text-align: center;
+    padding: 50px;
+}
+
+h1 {
+    font-size: 4rem;
+    margin-bottom: 50px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#login-container {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+input {
+    padding: 10px;
+    font-size: 1.2rem;
+    width: 80%;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: none;
+}
+
+.btn {
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-green {
+    background-color: green;
+}
+
+.chat-container {
+    display: none;
+    flex-direction: column;
+    height: 70vh;
+    border: 2px solid white;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.input-container {
+    display: none;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+}
+
+.chat-message {
+    background-color: #333;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.edit-btn, .delete-btn {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    margin-left: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+.edit-btn {
+    background-color: yellow;
+    color: black;
+}
+
+.delete-btn {
+    background-color: red;
+    color: white;
+}

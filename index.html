@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libya Chat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Libya Chat</h1>
+
+    <div id="login-container">
+        <label for="username-input">أدخل اليوزر (بالإنجليزية فقط)</label>
+        <input type="text" id="username-input" placeholder="Username" oninput="validateUsername(this)">
+        
+        <label for="password-input">أدخل كلمة السر</label>
+        <input type="password" id="password-input" placeholder="كلمة السر (أكثر من 4 أحرف)">
+        
+        <button class="btn btn-green" onclick="register()">ابدأ</button>
+    </div>
+
+    <h2>المتصلين الآن: <span id="online-count">0</span></h2>
+
+    <div id="chat-container" class="chat-container"></div>
+
+    <div id="input-container" class="input-container">
+        <input type="text" id="message-input" placeholder="اكتب رسالتك...">
+        <button class="btn btn-green" onclick="sendMessage()">إرسال</button>
+    </div>
+
+    <audio id="notification-sound" src="https://www.myinstants.com/media/sounds/notification-sound.mp3"></audio>
+
+    <script src="main.js"></script>
+
+</body>
+</html>
