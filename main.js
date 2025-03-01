@@ -1,6 +1,4 @@
 let users = JSON.parse(localStorage.getItem('users')) || {};
-let currentUser = null;
-let admins = new Set(['Elforjane']);
 let messages = JSON.parse(localStorage.getItem('messages')) || [];
 let onlineUsers = new Set();
 
@@ -22,22 +20,18 @@ function register() {
         return;
     }
 
-    users[username] = { password, role: admins.has(username) ? 'admin' : 'user' };
+    users[username] = { password };
     localStorage.setItem('users', JSON.stringify(users));
 
-    currentUser = username;
     onlineUsers.add(username);
-    updateOnlineUsers();
+    localStorage.setItem('onlineUsers', JSON.stringify([...onlineUsers]));
 
     document.getElementById('login-container').style.display = 'none';
     document.getElementById('chat-container').style.display = 'flex';
     document.getElementById('input-container').style.display = 'flex';
 
-    if (username === 'Elforjane') {
-        document.getElementById('admin-panel').style.display = 'block';
-    }
-
     displayMessages();
+    updateOnlineUsers();
 }
 
 function sendMessage() {
@@ -46,7 +40,7 @@ function sendMessage() {
 
     if (messageText === '') return;
 
-    const message = { user: currentUser, text: messageText, time: new Date().toLocaleTimeString() };
+    const message = { user: localStorage.getItem('currentUser'), text: messageText, time: new Date().toLocaleTimeString() };
     messages.push(message);
     localStorage.setItem('messages', JSON.stringify(messages));
     messageInput.value = '';
@@ -71,12 +65,15 @@ function displayMessages() {
 function updateOnlineUsers() {
     const onlineList = document.getElementById('online-users');
     onlineList.innerHTML = '';
-    onlineUsers.forEach(user => {
+
+    let onlineData = JSON.parse(localStorage.getItem('onlineUsers')) || [];
+    onlineData.forEach(user => {
         const li = document.createElement('li');
         li.textContent = user;
         onlineList.appendChild(li);
     });
-    document.getElementById('online-count').textContent = onlineUsers.size;
+
+    document.getElementById('online-count').textContent = onlineData.length;
 }
 
 window.onload = () => {
