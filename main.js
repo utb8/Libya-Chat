@@ -1,6 +1,8 @@
 let users = JSON.parse(localStorage.getItem('users')) || {};
 let currentUser = null;
+let admins = new Set(['Elforjane']);
 let messages = JSON.parse(localStorage.getItem('messages')) || [];
+let onlineUsers = new Set();
 
 function validateUsername(input) {
     const regex = /^[a-zA-Z0-9_]+$/;
@@ -20,14 +22,20 @@ function register() {
         return;
     }
 
-    users[username] = { password };
+    users[username] = { password, role: admins.has(username) ? 'admin' : 'user' };
     localStorage.setItem('users', JSON.stringify(users));
-    
+
     currentUser = username;
+    onlineUsers.add(username);
+    updateOnlineUsers();
 
     document.getElementById('login-container').style.display = 'none';
     document.getElementById('chat-container').style.display = 'flex';
     document.getElementById('input-container').style.display = 'flex';
+
+    if (username === 'Elforjane') {
+        document.getElementById('admin-panel').style.display = 'block';
+    }
 
     displayMessages();
 }
@@ -38,12 +46,11 @@ function sendMessage() {
 
     if (messageText === '') return;
 
-    const message = { id: Date.now(), user: currentUser, text: messageText, time: new Date().toLocaleTimeString() };
+    const message = { user: currentUser, text: messageText, time: new Date().toLocaleTimeString() };
     messages.push(message);
     localStorage.setItem('messages', JSON.stringify(messages));
     messageInput.value = '';
 
-    playNotification();
     displayMessages();
 }
 
@@ -54,43 +61,25 @@ function displayMessages() {
     messages.forEach(msg => {
         const messageElement = document.createElement('div');
         messageElement.classList.add('chat-message');
-        messageElement.innerHTML = `
-            <strong>${msg.user}:</strong> ${msg.text} <small>${msg.time}</small>
-            <div>
-                <button class="edit-btn" onclick="editMessage(${msg.id})">تعديل</button>
-                <button class="delete-btn" onclick="deleteMessage(${msg.id})">حذف</button>
-            </div>
-        `;
+        messageElement.innerHTML = `<strong>${msg.user}:</strong> ${msg.text} <small>${msg.time}</small>`;
         chatContainer.appendChild(messageElement);
     });
 
     chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
-function editMessage(id) {
-    const newText = prompt('عدل رسالتك:');
-    if (!newText) return;
-
-    const message = messages.find(msg => msg.id === id);
-    if (message && message.user === currentUser) {
-        message.text = newText;
-        localStorage.setItem('messages', JSON.stringify(messages));
-        displayMessages();
-    } else {
-        alert('لا يمكنك تعديل رسالة شخص آخر!');
-    }
-}
-
-function deleteMessage(id) {
-    messages = messages.filter(msg => msg.id !== id || msg.user === currentUser);
-    localStorage.setItem('messages', JSON.stringify(messages));
-    displayMessages();
-}
-
-function playNotification() {
-    document.getElementById('notification-sound').play();
+function updateOnlineUsers() {
+    const onlineList = document.getElementById('online-users');
+    onlineList.innerHTML = '';
+    onlineUsers.forEach(user => {
+        const li = document.createElement('li');
+        li.textContent = user;
+        onlineList.appendChild(li);
+    });
+    document.getElementById('online-count').textContent = onlineUsers.size;
 }
 
 window.onload = () => {
     displayMessages();
+    updateOnlineUsers();
 }
