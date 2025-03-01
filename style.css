@@ -20,7 +20,7 @@ h1 {
     border-radius: 10px;
 }
 
-#login-container, #admin-panel {
+#login-container {
     background: rgba(0, 0, 0, 0.7);
     padding: 30px;
     border-radius: 10px;
@@ -56,12 +56,8 @@ input {
     background-color: green;
 }
 
-.btn-red {
-    background-color: red;
-}
-
 .chat-container {
-    display: none;
+    display: flex;
     flex-direction: column;
     height: 70vh;
     border: 2px solid white;
@@ -72,7 +68,6 @@ input {
 }
 
 .input-container {
-    display: none;
     background-color: white;
     border-radius: 10px;
     padding: 10px;
@@ -91,28 +86,6 @@ input {
     margin-bottom: 10px;
     border-radius: 8px;
     text-align: left;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.edit-btn, .delete-btn {
-    padding: 5px 10px;
-    font-size: 0.9rem;
-    margin-left: 10px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-}
-
-.edit-btn {
-    background-color: yellow;
-    color: black;
-}
-
-.delete-btn {
-    background-color: red;
-    color: white;
 }
 
 #online-users {
